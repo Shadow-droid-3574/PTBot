@@ -1,6 +1,5 @@
 fastapi
 uvicorn
-python-telegram-bot==20.7
 requests
 sqlalchemy
 psycopg2-binary
@@ -8,3 +7,9 @@ redis
 python-dotenv
 apscheduler
 pillow
+python-telegram-bot>=20.0
+aioredis
+httpx
+sqlalchemy
+asyncpg
+pydantic

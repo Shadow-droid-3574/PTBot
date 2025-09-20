@@ -1,0 +1,48 @@
+version: "3.8"
+services:
+  postgres:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: secret
+      POSTGRES_DB: telegram
+    ports:
+      - "5432:5432"
+
+  redis:
+    image: redis:7
+    ports:
+      - "6379:6379"
+
+  bot-api:
+    build: ../bot-api
+    env_file:
+      - ../bot-api/.env
+    depends_on:
+      - redis
+      - postgres
+    ports:
+      - "8080:8080"
+    networks:
+      - appnet
+
+  worker:
+    build: ../worker
+    env_file:
+      - ../worker/.env
+    depends_on:
+      - redis
+    networks:
+      - appnet
+
+  dashboard:
+    build: ../dashboard
+    env_file:
+      - ../dashboard/.env
+    ports:
+      - "3000:5173"
+    networks:
+      - appnet
+
+networks:
+  appnet:

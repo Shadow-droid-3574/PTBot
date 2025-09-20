@@ -1,0 +1,13 @@
+{
+  "name": "telegram-worker",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "start": "node src/index.js"
+  },
+  "dependencies": {
+    "ioredis": "^5.0.0",
+    "bullmq": "^1.74.0",
+    "axios": "^1.4.0"
+  }
+}

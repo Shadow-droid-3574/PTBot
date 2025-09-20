@@ -1,0 +1,37 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+
+jobs:
+  lint-test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        service: [bot-api, worker, dashboard]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Python (for bot-api)
+        if: matrix.service == 'bot-api'
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+      - name: Install deps (bot-api)
+        if: matrix.service == 'bot-api'
+        run: |
+          cd bot-api
+          pip install -r requirements.txt
+          # run tests if any
+      - name: Setup Node (for worker and dashboard)
+        if: matrix.service != 'bot-api'
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Install deps (node)
+        if: matrix.service != 'bot-api'
+        run: |
+          cd ${{ matrix.service }}
+          npm ci
