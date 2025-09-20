@@ -1,0 +1,2 @@
+Telegram bot name: rubot
+Telegram Token: 7577442080:AAHZinguRZv0ZsA3VkYB_uIF0Kqve7TBx1w
